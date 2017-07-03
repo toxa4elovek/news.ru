@@ -81,7 +81,6 @@ $config = [
         'allowActions' => [
             'site/*',
             'news/index',
-            //'debug/*',
             //'rbac/*'
         ]
     ],
