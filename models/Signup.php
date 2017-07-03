@@ -1,9 +1,6 @@
 <?php
 namespace app\models;
 
-use Swift_Plugins_Loggers_ArrayLogger;
-use Swift_Plugins_LoggerPlugin;
-
 use mdm\admin\models\form\Signup as SignupForm;
 use Yii;
 
@@ -25,13 +22,13 @@ class Signup extends SignupForm
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
-            //['username', 'unique', 'targetClass' => 'mdm\admin\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => 'mdm\admin\models\User', 'message' => 'Это имя уже зарегистрировано'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            //['email', 'unique', 'targetClass' => 'mdm\admin\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => 'mdm\admin\models\User', 'message' => 'Этот email уже зарегистрирован'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
