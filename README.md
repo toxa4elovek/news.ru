@@ -46,6 +46,7 @@
 
 **Важно!!! Переименуйте папку в директории** ```"vendor/kartik-v/yii2-widget-fileinput_"``` на
 ```yii2-widget-fileinput```
+
 2. Создать базу данных и настроить к ней подключение в файле /config/db.php
 
         ```php
