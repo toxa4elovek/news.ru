@@ -16,7 +16,7 @@ return array(
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-docblock/src'),
     'mdm\\admin\\' => array($vendorDir . '/mdmsoft/yii2-admin'),
     'kartik\\plugins\\fileinput\\' => array($vendorDir . '/kartik-v/bootstrap-fileinput'),
-    'kartik\\file\\' => array($vendorDir . '/kartik-v/yii2-widget-fileinput_'),
+    'kartik\\file\\' => array($vendorDir . '/kartik-v/yii2-widget-fileinput'),
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
