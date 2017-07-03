@@ -130,7 +130,7 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         ),
         'kartik\\file\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-fileinput',
+            0 => __DIR__ . '/..',
         ),
         'kartik\\base\\' => 
         array (
