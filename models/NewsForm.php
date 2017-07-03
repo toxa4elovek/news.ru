@@ -6,6 +6,9 @@ use app\models\News;
 use Yii;
 use yii\helpers\Html;
 
+/*
+ * Модель формы добавления новостей
+ */
 class NewsForm extends Model
 {
     public $title;
@@ -16,7 +19,8 @@ class NewsForm extends Model
     public function rules()
     {
         return [
-            [['title', 'description', 'preview'], 'required' , 'trim'],
+            [['title', 'description', 'preview'], 'trim'],
+            [['title', 'description', 'preview'], 'required'],
             ['img', 'image']
         ];
     }

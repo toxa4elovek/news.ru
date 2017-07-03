@@ -1,208 +1,95 @@
-Yii 2 Basic Project Template
-============================
+Новостной сайт на базе Yii2 basic
+=================================
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
+**Описание задачи:**
+--------------------
+Используя basic шаблон фреймворка Yii2 нужно написать простейший новостной сайт
+с авторизацией и оповещением пользователей о событиях.
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
+**Junior Developer:**
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-basic/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-basic/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
+- Регистрация и авторизация пользователей (можно использовать готовые
 
-DIRECTORY STRUCTURE
--------------------
+модули/расширения) с подтверждением почтового ящика.
 
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
+- Постраничный вывод превью новостей на главной странице с дальнейшим
+
+полным просмотром. Количество превью на странице должно быть
+
+изменяемым.
+
+- CRUD управление новостями и пользователями с разграничением прав.
+
+Анонимный пользователь может просматривать только превью, пользователь
+
+может просматривать полные новости, модератор может добавлять новости, а
+
+администратор еще и управлять пользователями.
+
+- Оповещать пользователя по e-mail при изменении пароля или создания нового
+
+пользователя администратором (выслать новому пользователю на e-mail
+
+ссылку для активации профиля и ввода нового пароля для дальнейшей
+
+авторизации) и оповещать администратора при регистрации нового
+
+пользователя.
+
+-; Автоматическая авторизация на сайте при активации профиля.
 
 
+**Для установки приложения необходимо:**
+----------------------------------------
+1. Скопировать все файлы из архива в директорию сайта
+2. Создать базу данных и настроить к ней подключение в файле /config/db.php
+        ```php
+        return [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=dbName',
+            'username' => 'username',
+            'password' => 'password for username',
+            'charset' => 'utf8',    
+        ];
+        ```
+3. **Выполнить миграции в указанном порядке:**
+- ```yii migrate --migrationPath=@mdm/admin/migrations```
+- ```yii migrate --migrationPath=@yii/rbac/migrations```
+- ```yii migrate``` 
+4.	Выполнить инициализацию модуля Rbac ```yii rbac/init```, в результате инициализации будут добавлены роли (User, Moderator, Admin) и разрешения (userAccess, modAccess, adminAccess)
+5.	По умолчанию роль Admin будет установлена для первого зарегистрированного пользователя с id = 1
+6.	Для добавления маршрутов необходимо:
+- Раскомментировать строку в файле ```/config/web.php```
+    ```php
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+           ...
+            //'rbac/*',
+               ...
+        ]
+    ],
+    ```
+ Теперь модуль Rbac доступен по маршруту ```ваш_домен/rbac```
+- В меню *маршруты* добавляем маршруты - ```rbac/*, admin/*, news/view```
+- Добавляем маршруты разрешениям ```userAccess = news/view,
+	modAccess = admin/* + userAccess, adminAccess = rbac/* + modAccess```
+- Строку из пункта а необходимо закомментировать 
+7.	Регистрация пользователей - по умолчанию первый пользователь будет админ, укажите при регистрации свой email , на который придёт ссылка для активации аккаунта, после перехода по ссылке вам будет доступен пункт меню Админка. 
+Из Админки будет доступно управление ролями и разрешениями (пункт меню - Пользователи)
+8.	В файле ```/config/params.php``` укажите email администратора на него будут приходить уведомления о регистрации новых пользователей
+        ```php
+        return [
+               …
+            'adminEmail' => 'admin@example.com',    
+             …
+        ];
+        ```
 
-REQUIREMENTS
+Требования
 ------------
 
-The minimum requirement by this project template that your Web server supports PHP 5.4.0.
+**Минимальные системные требования:**
+- web-server: Apache
+- php 5.4
 
-
-INSTALLATION
-------------
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:^1.3.1"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-### Install from an Archive File
-
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-Set cookie validation key in `config/web.php` file to some random secret string:
-
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
-],
-```
-
-You can then access the application through the following URL:
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
-```
-
-**NOTES:**
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
-
-
-
-TESTING
--------
-
-Tests are located in `tests` directory. They are developed with [Codeception PHP Testing Framework](http://codeception.com/).
-By default there are 3 test suites:
-
-- `unit`
-- `functional`
-- `acceptance`
-
-Tests can be executed by running
-
-```
-vendor/bin/codecept run
-``` 
-
-The command above will execute unit and functional tests. Unit tests are testing the system components, while functional
-tests are for testing user interaction. Acceptance tests are disabled by default as they require additional setup since
-they perform testing in real browser. 
-
-
-### Running  acceptance tests
-
-To execute acceptance tests do the following:  
-
-1. Rename `tests/acceptance.suite.yml.example` to `tests/acceptance.suite.yml` to enable suite configuration
-
-2. Replace `codeception/base` package in `composer.json` with `codeception/codeception` to install full featured
-   version of Codeception
-
-3. Update dependencies with Composer 
-
-    ```
-    composer update  
-    ```
-
-4. Download [Selenium Server](http://www.seleniumhq.org/download/) and launch it:
-
-    ```
-    java -jar ~/selenium-server-standalone-x.xx.x.jar
-    ```
-
-    In case of using Selenium Server 3.0 with Firefox browser since v48 or Google Chrome since v53 you must download [GeckoDriver](https://github.com/mozilla/geckodriver/releases) or [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) and launch Selenium with it:
-
-    ```
-    # for Firefox
-    java -jar -Dwebdriver.gecko.driver=~/geckodriver ~/selenium-server-standalone-3.xx.x.jar
-    
-    # for Google Chrome
-    java -jar -Dwebdriver.chrome.driver=~/chromedriver ~/selenium-server-standalone-3.xx.x.jar
-    ``` 
-    
-    As an alternative way you can use already configured Docker container with older versions of Selenium and Firefox:
-    
-    ```
-    docker run --net=host selenium/standalone-firefox:2.53.0
-    ```
-
-5. (Optional) Create `yii2_basic_tests` database and update it by applying migrations if you have them.
-
-   ```
-   tests/bin/yii migrate
-   ```
-
-   The database configuration can be found at `config/test_db.php`.
-
-
-6. Start web server:
-
-    ```
-    tests/bin/yii serve
-    ```
-
-7. Now you can run all available tests
-
-   ```
-   # run all available tests
-   vendor/bin/codecept run
-
-   # run acceptance tests
-   vendor/bin/codecept run acceptance
-
-   # run only unit and functional tests
-   vendor/bin/codecept run unit,functional
-   ```
-
-### Code coverage support
-
-By default, code coverage is disabled in `codeception.yml` configuration file, you should uncomment needed rows to be able
-to collect code coverage. You can run your tests and collect coverage with the following command:
-
-```
-#collect coverage for all tests
-vendor/bin/codecept run -- --coverage-html --coverage-xml
-
-#collect coverage only for unit tests
-vendor/bin/codecept run unit -- --coverage-html --coverage-xml
-
-#collect coverage for unit and functional tests
-vendor/bin/codecept run functional,unit -- --coverage-html --coverage-xml
-```
-
-You can see code coverage output under the `tests/_output` directory.

@@ -16,6 +16,11 @@ use app\models\LoginForm as LoginModel;
 use app\models\ContactForm;
 use app\models\Signup;
 
+
+/*
+ * Контроллер сайта
+ * выполняет регистрацию, авторизацию и активацию пользователей
+ */
 class SiteController extends Controller
 {
     /**
@@ -94,7 +99,7 @@ class SiteController extends Controller
                     } else {
                         if ($model->sendActivationEmail($user) ) {
                             $model->sendAdminEmail($user);
-                            Yii::$app->session->setFlash('success', "Письмо успешно отправлено на email<strong>" . Html::encode($user->email) . "</strong> проверьте вашу почту");
+                            Yii::$app->session->setFlash('success', "Письмо успешно отправлено на email<strong> " . Html::encode($user->email) . "</strong> проверьте вашу почту");
 
                         } else {
                             Yii::$app->session->setFlash('error', 'При отправке письма произошла ошибка');

@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Антон
- * Date: 01.07.2017
- * Time: 15:33
- */
+
 
 namespace app\controllers;
 
@@ -13,11 +8,16 @@ use yii\web\Controller;
 use yii\data\Pagination;
 use Yii;
 
+/*
+ * Контроллер новостей
+ * Выводит все превью новостей
+ * Выводит полное описание новости
+ */
 class NewsController extends Controller
 {
     public function actionIndex()
     {
-        $query = News::find()->select('id, title, description, img')->orderBy('id');
+        $query = News::find()->select('id, title, preview, description, img')->orderBy('id');
         $pages = New Pagination(['totalCount' => $query->count(), 'pageSize' => 5,
             'pageSizeParam' => false, 'forcePageParam' => false]);
         $model = $query->offset($pages->offset)->limit($pages->limit)->all();

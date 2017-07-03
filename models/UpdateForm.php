@@ -1,18 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: a.valkov
- * Date: 30.06.2017
- * Time: 10:41
- */
 
 namespace app\models;
-
 
 use yii\base\Model;
 use yii\helpers\Html;
 
-
+/*
+ * Модель формы редактирования новостей
+ */
 class UpdateForm extends Model
 {
     public $id;

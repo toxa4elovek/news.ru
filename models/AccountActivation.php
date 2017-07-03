@@ -6,6 +6,9 @@ use yii\base\InvalidParamException;
 use yii\base\Model;
 use Yii;
 
+/*
+ * Модель для активации аккаунта
+ */
 class AccountActivation extends Model
 {
     private $_user;

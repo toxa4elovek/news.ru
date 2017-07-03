@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Антон
- * Date: 01.07.2017
- * Time: 16:59
- */
-
 namespace app\models;
 
 use Swift_Plugins_Loggers_ArrayLogger;
@@ -14,6 +7,9 @@ use Swift_Plugins_LoggerPlugin;
 use mdm\admin\models\form\Signup as SignupForm;
 use Yii;
 
+/*
+ * Модель формы регистрации
+ */
 class Signup extends SignupForm
 {
     public $username;

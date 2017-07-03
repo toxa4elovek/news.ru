@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: a.valkov
- * Date: 28.06.2017
- * Time: 15:41
- */
 
 namespace app\modules\admin\controllers;
 
@@ -16,7 +10,9 @@ use app\models\NewsForm;
 use Yii;
 use yii\web\UploadedFile;
 
-
+/*
+ * Контроллер работы с новостями в админке
+ */
 class NewsController extends Controller
 {
     public function actionIndex()
@@ -91,7 +87,7 @@ class NewsController extends Controller
     {
         $model = News::findOne(Yii::$app->request->get('id'));
         if($model->delete())
-            return $this->goHome();
+            return $this->redirect('/admin/news/index');
     }
 
 }

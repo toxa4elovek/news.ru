@@ -49,7 +49,7 @@ use yii\helpers\Html;
     </div>
 
     <div class="col-lg-3" style="margin-top: 20px" ">
-        <?= Html::a('Удалить новость', ['/admin/delete?id='.$model->id], ['class'=>'btn btn-primary']) ?>
+        <?= Html::a('Удалить новость', ['/admin/news/delete?id='.$model->id], ['class'=>'btn btn-primary']) ?>
     </div>
 </div>
 </div>
